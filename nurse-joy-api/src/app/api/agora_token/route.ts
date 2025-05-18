@@ -10,7 +10,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Channel name and uid are required" }, { status: 400 });
   }
 
-
   const currentTime = Math.floor(Date.now() / 1000);
   const expirationTime = currentTime + 60 * 60 * 2; // 2 hours
   const privilegeExpiredTs = currentTime + 60 * 60 * 2;
