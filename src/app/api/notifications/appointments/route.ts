@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { adminDb, adminMessaging } from "@/lib/firebase-admin";
+import { adminFirestore, adminMessaging } from "@/utils/firebase";
 
 export async function POST(req: NextRequest) {
     const {userID, doctorID, appointmentTime} = await req.json();
@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
     // push message to doctor
 
     try {
-        const tokenDoc = await adminDb.collection('fcm-tokens').doc(doctorID).get();
+        const tokenDoc = await adminFirestore.collection('fcm-tokens').doc(doctorID).get();
         const token = tokenDoc.data()?.token;
 
         if (!token) {
