@@ -1,6 +1,6 @@
 import { RtcTokenBuilder, RtcRole } from "agora-token";
 import { NextRequest, NextResponse } from "next/server";
-import { firestore} from "@/utils/firebase";
+import { webFirestore} from "@/utils/web-firebase";
 import { doc, setDoc, collection } from "firebase/firestore/lite";
 
 export async function POST(req: NextRequest) {
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
 async function storeTokenFireStore(chatRoomId: string, channelName: string, uid: number, token: string, expiresAt: number) {
     // store the token in video-call collection in firestore
     
-    const videoCallRef = collection(firestore, 'video-call');
+    const videoCallRef = collection(webFirestore, 'video-call');
     const docRef = doc(videoCallRef, channelName);
     await setDoc(docRef, {
         'chatRoomId': chatRoomId,
