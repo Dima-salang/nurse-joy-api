@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# firebase
+nurse-joy-d34d3-firebase-adminsdk-fbsvc-96f4aafb35.json
