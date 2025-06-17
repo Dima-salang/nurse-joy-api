@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { initializeApp } from "firebase-admin";
-import admin from "firebase-admin";
-
-initializeApp();
+import { adminDb, adminMessaging } from "@/lib/firebase-admin";
 
 export async function POST(req: NextRequest) {
     const {userID, doctorID, appointmentTime} = await req.json();
@@ -10,7 +7,7 @@ export async function POST(req: NextRequest) {
     // push message to doctor
 
     try {
-        const tokenDoc = await admin.firestore().collection('fcm-tokens').doc(doctorID).get();
+        const tokenDoc = await adminDb.collection('fcm-tokens').doc(doctorID).get();
         const token = tokenDoc.data()?.token;
 
         if (!token) {
@@ -25,7 +22,7 @@ export async function POST(req: NextRequest) {
             token,
         };
 
-        await admin.messaging().send(message);
+        await adminMessaging.send(message);
         return NextResponse.json({ message: 'Message sent successfully' }, { status: 200 });
     } catch (error) {
         console.error('Error sending message:', error);
