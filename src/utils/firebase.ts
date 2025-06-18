@@ -8,11 +8,7 @@ import { getMessaging } from "firebase-admin/messaging";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseAdminConfig = {
-  credential: cert({
-    projectId: process.env.ADMIN_FIREBASE_PROJECT_ID,
-    clientEmail: process.env.ADMIN_FIREBASE_CLIENT_EMAIL,
-    privateKey: process.env.ADMIN_FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-  })
+  credential: cert(JSON.parse(process.env.ADMIN_FIREBASE_SERVICE_ACCOUNT!)),
 };
 
 // Initialize Firebase
