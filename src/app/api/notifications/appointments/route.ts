@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { adminFirestore, adminMessaging } from "@/utils/firebase";
 
 
-export async function OPTIONS(req: NextRequest) {
+export async function OPTIONS() {
     const headers = new Headers();
     headers.set('Access-Control-Allow-Origin', '*');
     headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
