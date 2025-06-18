@@ -1,6 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { adminFirestore, adminMessaging } from "@/utils/firebase";
 
+
+export async function OPTIONS(req: NextRequest) {
+    const headers = new Headers();
+    headers.set('Access-Control-Allow-Origin', '*');
+    headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    headers.set('Access-Control-Allow-Headers', 'Content-Type');
+    
+    return new NextResponse(null, { status: 200, headers });
+}
+
 export async function POST(req: NextRequest) {
     // Add CORS headers
     const headers = new Headers();
