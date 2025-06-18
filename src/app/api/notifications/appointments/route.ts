@@ -8,13 +8,9 @@ export async function POST(req: NextRequest) {
     headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
     headers.set('Access-Control-Allow-Headers', 'Content-Type');
 
-    // Handle preflight request
-    if (req.method === 'OPTIONS') {
-        return new NextResponse(null, { headers });
-    }
 
     try {
-        const { userID, doctorID, appointmentTime } = await req.json();
+        const { userID, doctorID, appointmentDateTime } = await req.json();
 
         // Fix the collection name to match where you're storing tokens
         const tokenDoc = await adminFirestore.collection('fcm_tokens').doc(doctorID).get();
@@ -30,7 +26,7 @@ export async function POST(req: NextRequest) {
         const message = {
             notification: {
                 title: 'New Appointment',
-                body: `You have a new appointment with user ${userID} at ${new Date(appointmentTime).toLocaleString()}`,
+                body: `You have a new appointment with user ${userID} at ${new Date(appointmentDateTime).toLocaleString()}`,
             },
             token,
         };
